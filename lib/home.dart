@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-// import 'camera_screen.dart';
+import 'camera_screen.dart';
 
-/// Displays a list of SampleItems.
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
@@ -30,10 +29,10 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 50),
                 FilledButton(
                   onPressed: () {
-                    // Navigator.restorablePushNamed(
-                    //   context,
-                    //   CameraScreen.routeName,
-                    // );
+                    Navigator.restorablePushNamed(
+                      context,
+                      CameraScreen.routeName,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
