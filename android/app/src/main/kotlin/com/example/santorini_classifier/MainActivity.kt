@@ -4,10 +4,12 @@ import android.content.Context
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import org.pytorch.IValue
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import org.pytorch.Module
+import org.pytorch.Tensor
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "pytorch_classifier"
@@ -27,6 +29,27 @@ class MainActivity: FlutterActivity() {
                     } catch (e: Exception) {
                         result.error("LOAD_ERROR",modelPath, e)
                     }
+                }
+                "classify" -> {
+                    // Retrieve and cast arguments
+                    val imageData = call.argument<ArrayList<Double>>("imageData")!!
+                    val inputShape = call.argument<List<Long>>("inputShape")!!
+            
+                    // Convert ArrayList<Double> to FloatArray
+                    val floatArray = FloatArray(imageData.size) { i -> imageData[i].toFloat() }
+
+                    // Convert List<Long> to LongArray
+                    val longArray = inputShape.map { it.toLong() }.toLongArray()
+
+                    // Create input tensor
+                    val inputTensor = Tensor.fromBlob(floatArray, longArray)
+            
+                    // Run the model
+                    val outputTensor = module.forward(IValue.from(inputTensor)).toTensor()
+            
+                    // Extract the result
+                    val outputData = outputTensor.dataAsFloatArray
+                    result.success(outputData)
                 }
                 else -> {
                     result.notImplemented()

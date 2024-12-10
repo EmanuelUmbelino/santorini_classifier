@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'dart:io';
+import 'image_classifier.dart';
 
 // import 'package:santorini_classifier/image_classifier.dart';
 
@@ -41,6 +42,7 @@ class DisplayPictureScreen extends StatelessWidget {
     List<File> croppedImages = [];
     List<int> resultImages = [];
 
+    print('CODE CLEAR');
     // Dividir a imagem em células e cortá-las.
     for (int row = 0; row < gridDivisions; row++) {
       for (int col = 0; col < gridDivisions; col++) {
@@ -60,9 +62,14 @@ class DisplayPictureScreen extends StatelessWidget {
         croppedFile.writeAsBytesSync(img.encodePng(croppedImage));
         croppedImages.add(croppedFile);
 
-        // final resultList = await ImageClassifier().classify(croppedFile);
-        // final result = getIndexOfMaxValue(resultList);
-        // resultImages.add(result);
+        final resultList = await ImageClassifier().classify(croppedFile);
+        final result = getIndexOfMaxValue(resultList);
+        resultImages.add(result);
+
+        print('CODE x- $row $col');
+        print('CODE y- $resultList');
+        print('CODE z- $result');
+        print('CODE');
       }
     }
 
@@ -117,14 +124,14 @@ class DisplayPictureScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Stack(children: [
                   Image.file(croppedImages[index]),
-                  // Center(
-                  //     child: Text(
-                  //   resultToText(results[index]),
-                  //   style: const TextStyle(
-                  //       fontSize: 30,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Colors.white),
-                  // )),
+                  Center(
+                      child: Text(
+                    resultToText(results[index]),
+                    style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )),
                 ]);
               },
             ));
