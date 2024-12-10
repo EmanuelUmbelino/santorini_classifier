@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.2
 
 dev_dependencies:
   flutter_test:
@@ -20,3 +21,9 @@ flutter:
 
   assets:
     - assets/
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png" 
