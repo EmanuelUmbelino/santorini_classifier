@@ -40,8 +40,6 @@ class DisplayPictureScreen extends StatelessWidget {
 
     List<File> croppedImages = [];
     List<int> resultImages = [];
-    print('T--XX : cropImage: $imagePath ');
-    print('T--XX : gridSize: $gridSize ');
 
     // Dividir a imagem em células e cortá-las.
     for (int row = 0; row < gridDivisions; row++) {
@@ -73,7 +71,7 @@ class DisplayPictureScreen extends StatelessWidget {
 
   int getIndexOfMaxValue(List<num> list) {
     if (list.isEmpty) {
-      throw Exception("A lista está vazia");
+      throw Exception("The list is empty");
     }
 
     int maxIndex = 0;
