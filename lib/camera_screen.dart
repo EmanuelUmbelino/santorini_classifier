@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 import 'package:santorini_classifier/grip_painter.dart';
-// import 'package:santorini_classifier/src/picture_cut_screen.dart';
+import 'package:santorini_classifier/picture_cut_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({
@@ -88,13 +88,13 @@ class _CameraScreenState extends State<CameraScreen> {
 
             // Navegue para outra tela para exibir a foto.
             if (!mounted) return;
-            // await Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => DisplayPictureScreen(
-            //       imagePath: image.path,
-            //     ),
-            //   ),
-            // );
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DisplayPictureScreen(
+                  imagePath: image.path,
+                ),
+              ),
+            );
           } catch (e) {
             // Se ocorrer um erro, exiba-o no console.
             print(e);
