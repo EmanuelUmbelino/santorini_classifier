@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 import 'home.dart';
 import 'camera_screen.dart';
-import 'package:camera/camera.dart';
+import 'image_classifier.dart';
 
 void main() async {
   // Garantir que a inicialização dos widgets foi concluída.
@@ -12,6 +13,10 @@ void main() async {
 
   // Selecionar a primeira câmera disponível.
   final firstCamera = cameras.first;
+
+  final imageClassifier = ImageClassifier();
+
+  await imageClassifier.loadModel();
 
   runApp(MainApp(camera: firstCamera));
 }
